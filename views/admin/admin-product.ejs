@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin-product</title>
+  <link rel="shortcut icon" type="image/png" href="/adminp/images/logos/favicon.png" />
+  <link rel="stylesheet" href="/adminp/css/styles.min.css" />
+  <!-- <link rel="stylesheet" href="/adminp/css/style.mnmx.css"> -->
+</head>
+<body>
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+<!-- Sidebar Start -->
+<%- include('sidebar.ejs') %>
+<!--  Sidebar End -->
+<!--  Main wrapper -->
+<div class="body-wrapper">
+  <!--  Header Start -->
+  <header class="app-header">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <ul class="navbar-nav">
+        <li class="nav-item d-block d-xl-none">
+          <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+            <i class="ti ti-menu-2"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+            <i class="ti ti-bell-ringing"></i>
+            <div class="notification bg-primary rounded-circle"></div>
+          </a>
+        </li>
+      </ul>
+      <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+        <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+          <!-- <a href="https://adminmart.com/product/modernize-free-bootstrap-admin-dashboard/"  class="btn btn-primary">Download Free</a> -->
+          <li class="nav-item dropdown">
+            <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <img src="/adminp/images/logos/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+            </a>
+            <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+              <div class="message-body">
+                <!-- <a href="admin-login.html" class="d-flex align-items-center gap-2 dropdown-item">
+                  <i class="ti ti-logout fs-6"></i>
+                  <p class="mb-0 fs-3">Logout</p>
+                </a>
+                <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                  <i class="ti ti-mail fs-6"></i>
+                  <p class="mb-0 fs-3">My Account</p>
+                </a>
+                <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                  <i class="ti ti-list-check fs-6"></i>
+                  <p class="mb-0 fs-3">My Task</p>
+                </a> -->
+                <a href="/admi/admlog" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!--  Header End --> 
+      <div class="container-fluid">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="fw-semibold mb-4">Product</h1>
+            <div class="card">
+              <div class="card-body">
+                <form method="POST" action="/admprod" enctype="multipart/form-data">  
+                  <div class="row mb-3">
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+                      <label  class="form-label">Product Name</label>
+                      <input type="text" class="form-control"  name="pname" id="pname">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                      <label  class="form-label">Category</label>
+                      <select id="disabledSelect" class="form-select" name="pcategory">
+                        <option>Category select</option>
+                         <option value="vegetables">vegetables</option>
+                         <option value="fruits">fruits</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-lg-6 col-md-4 col-sm-4">
+                      <label  class="form-label">Product Price</label>
+                      <input type="number" class="form-control"  name="pprice" >
+                    </div>
+                    <div class="col-lg-6 col-md-8 col-sm-8">
+                      <label  class="form-label">Product Quantity / Kg</label>
+                      <input type="number" class="form-control"  name="pquantity" >
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                      <label  class="form-label">Product Image</label>
+                      <input type="file" class="form-control"  name="pimage">
+                    </div>
+
+                    <div class="col-lg-7 col-md-7 col-sm-7">
+                      <label  class="form-label">Product Description</label>
+                      <textarea class="form-control" id="productDescription" name="pdescription" rows="2" cols="50"></textarea>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary" value="Submit">Add</button>
+                  <a href="" class="btn btn-danger">Reset</a>
+                </form>
+              </div>
+            </div>
+
+<!-- table begin -->
+            <div class="card w-100">
+              <div class="card-body p-4">
+                <h5 class="card-title fw-semibold mb-4">Product List</h5>
+                <div class="table-responsive">
+                  <table class="table text-nowrap mb-0 align-middle">
+                    <thead class="text-dark fs-4">
+                      <tr>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0">Id</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0">Product name</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0">Category</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0">Price</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0">Quantity / Kg</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0">Description</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0">Image</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0">Edit</h6>
+                        </th>
+                        <th class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0">Delete</h6>
+                        </th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <span class="text-white"><%= a=1; %></span>
+                      <% prod.forEach(product => { %>
+                      <tr>
+                        <td class="border-bottom-0"><h6 class="fw-semibold mb-0"><%= a %></h6></td>
+                        <td class="border-bottom-0">
+                          <p class="mb-0 fw-normal"><%= product.pname %></p>                         
+                        </td>
+                        <td class="border-bottom-0">
+                          <p class="mb-0 fw-normal"><%= product.pcategory %></p>
+                        </td>
+                        <td class="border-bottom-0">
+                          <p class="mb-0 fw-normal"><%= product.pprice %></p>
+                        </td>
+                        <td class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0 fs-4"><%= product.pquantity %></h6>
+                        </td>
+                        <td class="border-bottom-0">
+                          <p class="mb-0 fw-normal"><%= product.pdescription %>  </p>
+                        </td>
+                        <td class="border-bottom-0">
+                          <h6 class="fw-semibold mb-0 fs-4"><img src="/adminp/images/products/<%= product.pimage %>" alt="product image" width="50"></h6>
+                        </td>
+
+                        <!-- <td class="border-bottom-0">
+                        <a href="/admprod"><span><i class="ti ti-edit btn btn-outline-success"></i></span></a>
+                        </td> -->
+                        <form action="/updatepro" method="POST">
+                          <td class="border-bottom-0">
+                          <input type="hidden" value="<%= product._id %>" name="productId">
+                          <button type="submit" class="ti ti-edit btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal<%= product._id %>"></button>
+                          </td>
+                        </form>
+
+                        <!-- Modal  -->
+                        <div class="modal fade " id="exampleModal<%= product._id %>" tabindex="-1" 
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <!-- <div class="modal-dialog modal-fullscreen p-5" style="width: 60%;"> -->
+                          <div class="modal-dialog modal-fullscreen p-4">
+                            <div class="modal-content p-5">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Product</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <form method="POST" action="/admprod" enctype="multipart/form-data">  
+                                  <div class="row mb-3">
+                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                      <label  class="form-label">Product Name</label>
+                                      <input type="text" class="form-control" name="pname" id="pname">
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                      <label  class="form-label">Category</label>
+                                      <select id="disabledSelect" class="form-select" name="pcategory">
+                                        <option>Category select</option>
+                                         <option value="vegetables">vegetables</option>
+                                         <option value="fruits">fruits</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="row mb-3">
+                                    <div class="col-lg-6 col-md-4 col-sm-4">
+                                      <label  class="form-label">Product Price</label>
+                                      <input type="number" class="form-control"  name="pprice" >
+                                    </div>
+                                    <div class="col-lg-6 col-md-8 col-sm-8">
+                                      <label  class="form-label">Product Quantity / Kg</label>
+                                      <input type="number" class="form-control"  name="pquantity" >
+                                    </div>
+                                  </div>
+                
+                                  <div class="row mb-3">
+                                    <div class="col-lg-5 col-md-5 col-sm-5">
+                                      <label  class="form-label">Product Image</label>
+                                      <input type="file" class="form-control"  name="pimage">
+                                    </div>
+                
+                                    <div class="col-lg-7 col-md-7 col-sm-7">
+                                      <label  class="form-label">Product Description</label>
+                                      <textarea class="form-control" id="productDescription" name="pdescription" rows="2" cols="50"></textarea>
+                                    </div>
+                                  </div>
+
+                                </form>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                                <input type="hidden" value="<%= product._id %>" name="productId">
+                                <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Done</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div> 
+
+
+
+                        <!-- <td class="border-bottom-0">
+                        <a href="/admprod"><span><i class="ti ti-trash btn btn-outline-danger"></i></span></a>
+                        </td> -->
+
+                        <form action="/deletepro" method="POST">
+                          <td class="border-bottom-0">
+                          <input type="hidden" value="<%= product._id %>" name="productId">
+                          <button type="submit" class="ti ti-trash btn btn-outline-danger "></button>
+                          </td>
+                        </form>
+                        
+                      </tr> 
+                      <% a++; %>
+                      <% }); %>                       
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+<!-- table end -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/adminp/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/adminp/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/adminp/js/sidebarmenu.js"></script>
+  <script src="/adminp/js/app.min.js"></script>
+  <script src="/adminp/libs/apexcharts/dist/apexcharts.min.js"></script>
+  <script src="/adminp/libs/simplebar/dist/simplebar.js"></script>
+  <script src="/adminp/js/dashboard.js"></script>
+</body>
+</html>
