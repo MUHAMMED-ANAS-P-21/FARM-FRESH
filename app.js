@@ -1,12 +1,27 @@
 const express = require('express')
 const ejs = require('ejs')
-const fs = require('fs')
-const multer = require('multer')
+const multer = require('multer');
+const fs = require('fs');
 const{ MongoClient, ObjectId } = require('mongodb')
 
 
 const app = express();
-const port = 3000;
+const port = 8000;
+
+
+// Set up multer for file upload
+const storage = multer.diskStorage({
+    destination: function (req, file, c) {
+        c(null, 'public/adminp/images/products/')
+
+    },
+    filename: function (req, file, c) {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        c(null, file.fieldname + '-' + uniqueSuffix + '.' + file.originalname.split('.').pop());
+    }
+});
+
+const upload = multer({ storage: storage });
 
 // new
 app.use(express.json());
@@ -14,16 +29,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // new
 
-// Set up multer for file upload
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/adminp/images/products/');
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, file.fieldname + '-' + uniqueSuffix + '.' + file.originalname.split('.').pop());
-    }
-});
 
 
 app.set('view engine','ejs');
@@ -69,8 +74,6 @@ app.get('/admprod', async (req, res) => {
   }
 });
 
-const upload = multer({ storage: storage });
-
 app.post('/admprod',upload.single('pimage'), async (req, res) => {
 
     try {
@@ -104,7 +107,7 @@ app.post('/updatepro',upload.single('pimage'), async (req, res) => {
         const db = client.db('FARM-FRESH');
         const collection = db.collection('product');
 
-        const { pname, pcategory, pquantity, pprice, pdescription } = req.body;
+        const { productId, pname, pcategory, pquantity, pprice, pdescription } = req.body;
 
             // Save the filename in the database
             const pimage = req.file.filename;

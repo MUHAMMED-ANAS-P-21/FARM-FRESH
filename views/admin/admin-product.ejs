@@ -43,18 +43,6 @@
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
               <div class="message-body">
-                <!-- <a href="admin-login.html" class="d-flex align-items-center gap-2 dropdown-item">
-                  <i class="ti ti-logout fs-6"></i>
-                  <p class="mb-0 fs-3">Logout</p>
-                </a>
-                <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                  <i class="ti ti-mail fs-6"></i>
-                  <p class="mb-0 fs-3">My Account</p>
-                </a>
-                <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                  <i class="ti ti-list-check fs-6"></i>
-                  <p class="mb-0 fs-3">My Task</p>
-                </a> -->
                 <a href="/admi/admlog" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
               </div>
             </div>
@@ -174,17 +162,10 @@
                         <td class="border-bottom-0">
                           <h6 class="fw-semibold mb-0 fs-4"><img src="/adminp/images/products/<%= product.pimage %>" alt="product image" width="50"></h6>
                         </td>
-
-                        <!-- <td class="border-bottom-0">
-                        <a href="/admprod"><span><i class="ti ti-edit btn btn-outline-success"></i></span></a>
-                        </td> -->
-                        <form action="/updatepro" method="POST">
                           <td class="border-bottom-0">
                           <input type="hidden" value="<%= product._id %>" name="productId">
                           <button type="submit" class="ti ti-edit btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal<%= product._id %>"></button>
                           </td>
-                        </form>
-
                         <!-- Modal  -->
                         <div class="modal fade " id="exampleModal<%= product._id %>" tabindex="-1" 
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -196,16 +177,16 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                <form method="POST" action="/admprod" enctype="multipart/form-data">  
+                                <form action="/updatepro" method="POST" enctype="multipart/form-data">  
                                   <div class="row mb-3">
                                     <div class="col-lg-8 col-md-8 col-sm-8">
                                       <label  class="form-label">Product Name</label>
-                                      <input type="text" class="form-control" name="pname" id="pname">
+                                      <input type="text" class="form-control" name="pname" value="<%= product.pname %>">
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-sm-4">
                                       <label  class="form-label">Category</label>
                                       <select id="disabledSelect" class="form-select" name="pcategory">
-                                        <option>Category select</option>
+                                        <option><%= product.pcategory %></option>
                                          <option value="vegetables">vegetables</option>
                                          <option value="fruits">fruits</option>
                                       </select>
@@ -214,36 +195,36 @@
                                   <div class="row mb-3">
                                     <div class="col-lg-6 col-md-4 col-sm-4">
                                       <label  class="form-label">Product Price</label>
-                                      <input type="number" class="form-control"  name="pprice" >
+                                      <input type="number" class="form-control"  name="pprice" value="<%= product.pprice %>">
                                     </div>
                                     <div class="col-lg-6 col-md-8 col-sm-8">
                                       <label  class="form-label">Product Quantity / Kg</label>
-                                      <input type="number" class="form-control"  name="pquantity" >
+                                      <input type="number" class="form-control"  name="pquantity" value="<%= product.pquantity %>" >
                                     </div>
                                   </div>
                 
                                   <div class="row mb-3">
                                     <div class="col-lg-5 col-md-5 col-sm-5">
                                       <label  class="form-label">Product Image</label>
-                                      <input type="file" class="form-control"  name="pimage">
+                                      <input type="file" class="form-control"  name="pimage" value="<%= product.pimage %>">
                                     </div>
                 
                                     <div class="col-lg-7 col-md-7 col-sm-7">
                                       <label  class="form-label">Product Description</label>
-                                      <textarea class="form-control" id="productDescription" name="pdescription" rows="2" cols="50"></textarea>
+                                      <input class="form-control" id="productDescription" name="pdescription" rows="2" cols="50" value="<%= product.pdescription %>">
                                     </div>
                                   </div>
-
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                                    <input type="hidden" value="<%= product._id %>" name="productId">
+                                    <button type="submit" class="btn btn-outline-success" data-bs-dismiss="modal">Done</button>
+                                  </div>
                                 </form>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                                <input type="hidden" value="<%= product._id %>" name="productId">
-                                <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Done</button>
                               </div>
                             </div>
                           </div>
                         </div> 
+
 
 
 
@@ -280,4 +261,4 @@
   <script src="/adminp/libs/simplebar/dist/simplebar.js"></script>
   <script src="/adminp/js/dashboard.js"></script>
 </body>
-</html>
+</html> 
